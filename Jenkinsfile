@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub_credentials')
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -8,30 +12,31 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install') {
             steps {
                 bat 'pip install -r requirements.txt'
             }
         }
 
-        stage('Run Tests') {
+        stage('Test') {
             steps {
-                bat 'pytest --maxfail=1 --disable-warnings -q' // Use pytest for Python projects
+                bat 'pytest --maxfail=1 --disable-warnings -q'
             }
         }
 
         stage('Docker Build & Push') {
-            environment {
-                DOCKERHUB_USERNAME = credentials('dockerhub_username') // Jenkins credentials for Docker Hub username
-                DOCKERHUB_PASSWORD = credentials('dockerhub_password') // Jenkins credentials for Docker Hub password
-            }
             steps {
-                bat """
-                echo %DOCKERHUB_PASSWORD% | docker login -u %DOCKERHUB_USERNAME% --password-stdin
-                docker build -t %DOCKERHUB_USERNAME%/todo_app:latest .
-                docker push %DOCKERHUB_USERNAME%/todo_app:latest
-                """
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub_credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                        bat """
+                        echo %DOCKERHUB_PASSWORD% | docker login -u %DOCKERHUB_USERNAME% --password-stdin
+                        docker build -t %DOCKERHUB_USERNAME%/todo_app:latest .
+                        docker push %DOCKERHUB_USERNAME%/todo_app:latest
+                        """
+                    }
+                }
             }
         }
     }
 }
+
