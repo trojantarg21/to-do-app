@@ -98,6 +98,23 @@ Learnings:
 
 Sample test output
 
+Below are some sample screenshots of commiting changes to git:
+
+![Git Status](assets/screenshots/git status.png)
+![Git Commit Changes](assets/screenshots/git commit changes.png)
+
+Here are some screenshots showing the building of docker file, and running it on  the localhost:
+
+![Docker Build](assets/screenshots/docker build.png)
+![Docker run and ps](assets/screenshots/docker run and ps.png)
+![Deploying on localhost](assets/screenshots/docker running on localhost.png)
+
+And here are some screenshots of successful execution of testing pipeline script:
+
+![Successful Build](assets/screenshots/Successful build output.png)
+![Changes Covered](assets/screenshots/Changes covered in build output.png)
+
+
 
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
