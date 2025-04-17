@@ -1,0 +1,30 @@
+# Python bytecode files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv/
+
+# IDE files (e.g., for VSCode, PyCharm)
+.vscode/
+.idea/
+
+# Docker files
+*.log
+*.pid
+
+# system files
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Other
+*.bak
+*.swp
