@@ -10,7 +10,7 @@ def index():
 
 @app.route('/add', methods=['POST'])
 def add_task():
-    new_task = request.form.get('newTask','')strip()
+    new_task = request.form.get('newTask','').strip()
     if new_task and new_task not in tasks: #Preventing from adding duplicate tasks
         tasks.append(new_task)
     return redirect(url_for('index'))
